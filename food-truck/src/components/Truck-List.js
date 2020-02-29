@@ -108,7 +108,7 @@ return (
         </label>
         <label>
           Food:
-          <input name="cuisineType" onChange={truckChangeHandler} value={editTruck.foodType} />
+          <input name="foodType" onChange={truckChangeHandler} value={editTruck.foodType} />
         </label>
         <div className="button-row">
           <button type="submit">Save</button>
