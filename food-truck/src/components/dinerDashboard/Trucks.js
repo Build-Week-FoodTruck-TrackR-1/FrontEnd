@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import standInImage from '../../images/delivery-truck-png-7.png'
 import { Typography, Button, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+
 const Container = styled.li`
     display: flex;
    

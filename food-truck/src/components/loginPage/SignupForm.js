@@ -90,7 +90,7 @@ export default withFormik({
     console.log("submitting...", formikBag);
 
     axios
-      .post("https://reqres.in/api/users/", values)
+      .post("register/diners", values)
       .then(res => {
         console.log(res);
         formikBag.setStatus(res.data);
