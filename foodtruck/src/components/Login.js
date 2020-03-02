@@ -5,6 +5,7 @@ import axios from "axios";
 import { FormGroup, Button } from "reactstrap";
 import { TextField } from "formik-material-ui";
 import { Link } from "react-router-dom";
+import "../scss/FormStyles.scss";
 
 function LoginForm(props) {
   const [data, setData] = useState([]);

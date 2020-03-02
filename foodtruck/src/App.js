@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./scss/App.scss";
 import SignupForm from "./components/SignupForm";
 import LoginForm from "./components/Login";
 import { Route } from "react-router-dom";
