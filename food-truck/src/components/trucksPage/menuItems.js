@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Typography, Divider, List, AppBar, Toolbar, Button} from '@material-ui/core';
-import MenuList from './menulist';
+import MenuList from './menuList';
 import { connect } from 'react-redux';
 import AddMenuItem from './addMenuItems';
  
@@ -90,7 +90,6 @@ const MenuItems = (props) => {
                     <List>
                         <MenuList catagory={singleCatagory} items={props.truck.catagorys[singleCatagory]} />
                     </List>
-                    {/* <Divider variant="middle" /> */}
                    </>)
         })}
    

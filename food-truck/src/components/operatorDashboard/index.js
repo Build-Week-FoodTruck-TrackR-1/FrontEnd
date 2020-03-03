@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Button, Typography, Toolbar, AppBar} from "@material-ui/core";
 import TruckCard from './truckCard';
-// import DeleteTruck from './deletetruck';
+ import DeleteTruck from '../operatorDashboard/deleteTruck';
 import CancelTwoTone from '@material-ui/icons/CancelTwoTone';
-// import EditUserInformation from './edituserinformation';
+ import EditUserInformation from '../dinerDashboard/updateUserInfo';
 import {signOut } from '../../actions';
 const Container = styled.section`
     .MuiAppBar-root {
@@ -95,16 +95,16 @@ const OperatorDashboard = (props) => {
                     <div>
                         <Button size="small" onClick={handleEditClickOpen}>Edit User Information</Button>
                         <Button size="small" onClick={handleSignOut}>Sign Out</Button> 
-                        {/* <EditUserInformation open={openEditMenu} onClose={handleEditClose} /> */}
+                        <EditUserInformation open={openEditMenu} onClose={handleEditClose} />
                     </div>
                 </Toolbar>
             </AppBar>
             <div>
                 {props.trucks && props.trucks.map(truck => {
                     return (<div>
-                    {/* <DeleteTruck id={truck.id} open={open} onClose={handleClose} /> */}
+                     <DeleteTruck id={truck.id} open={open} onClose={handleClose} /> 
                     <CancelTwoTone onClick={handleClickOpen} id="delete-button" />    
-                    {/* <TruckCard truck={truck} image={truckImage}/> </ div>)  */} </div>)
+                    <TruckCard truck={truck} /> </ div>)  
                 })}
             
             </div>

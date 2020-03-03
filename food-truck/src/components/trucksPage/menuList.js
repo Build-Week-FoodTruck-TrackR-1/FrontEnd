@@ -43,10 +43,6 @@ const Container = styled.section`
         }
 `;
 
-
-
-
-
 const MenuList = (props) => {
 
     const [focusedItem, setFocusedItem] = useState({
@@ -76,8 +72,6 @@ const MenuList = (props) => {
             dropdown.style.display = "none";
         }   
 
-        
-
         const parent = e.currentTarget.parentNode.parentNode;
         console.log(parent.children);
 
@@ -85,7 +79,6 @@ const MenuList = (props) => {
             return item.name === e.currentTarget.children[2].textContent 
         });
 
-        
         setFocusedItem(item[0]);
 
         let indexOfNode = Array.prototype.indexOf.call(parent.childNodes, e.currentTarget.parentNode);
@@ -101,18 +94,13 @@ const MenuList = (props) => {
                 difference % 2 !== 0 ? parent.children[indexOfNode + 1].style.display = "block" :  parent.children[indexOfNode + 2].style.display = "block";
         else if(parent.children.length === 2)
             parent.children[1].style.display = "block";
-
-
         
     }
     
-
     return(<Container>
       {props.items.map( (item, index) => {
-
-          
-          return(
-          
+   
+          return(  
           <>
           <Paper >
             <ListItem onClick={clickItem}>
@@ -135,7 +123,7 @@ const MenuList = (props) => {
                 <Typography>{focusedItem.price}</Typography>
                 <Divider />
                 <Typography>{focusedItem.description}</Typography>
-          </div> 
+          </div>  
           
           ) : (props.items.length === 1 ? (<div className="dropdown" style={{display: "none"}}>
           <Typography>{focusedItem.name}</Typography>
@@ -160,7 +148,6 @@ const MenuList = (props) => {
 const mapStateToProps = state => {
 
     return {
-
         currentUser: state.currentUser
     }
 }
