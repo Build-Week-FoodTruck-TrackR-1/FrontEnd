@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700");
+@import url("https://fonts.googleapis.com/css?family=Acme|Montserrat:500&display=swap");
 
 .App {
   text-align: center;
+  font-family: "Montserrat";
 }
 
 .inner-div {
-  background-color: #3a4968;
+  background-color: white;
   min-height: 120vh;
   display: flex;
   flex-direction: column;

@@ -6,6 +6,8 @@ import { FormGroup, Button } from "reactstrap";
 import { TextField } from "formik-material-ui";
 import { Link } from "react-router-dom";
 import "../scss/FormStyles.scss";
+import truckPic from "../images/mexican-truck.png";
+import ScrollAnimation from "react-animate-on-scroll";
 
 function LoginForm(props) {
   const [data, setData] = useState([]);
@@ -21,7 +23,10 @@ function LoginForm(props) {
     !isObjectEmpty && userArray.push(data);
   }, [data]); */
   return (
-    <div className="main-form">
+    <div className="main-form signup-div">
+      <ScrollAnimation animateIn="fadeIn" className="form-img-div">
+        <img src={truckPic} alt="coffee truck" />
+      </ScrollAnimation>
       <Form>
         <h2 className="form-title">Welcome Back</h2>
         <FormGroup>

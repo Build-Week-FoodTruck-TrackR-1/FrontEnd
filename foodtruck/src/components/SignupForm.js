@@ -6,23 +6,22 @@ import { FormGroup, Button } from "reactstrap";
 import { TextField } from "formik-material-ui";
 import { Link } from "react-router-dom";
 import "../scss/FormStyles.scss";
+import truckPic from "../images/coffee-truck.png";
+import ScrollAnimation from "react-animate-on-scroll";
 
 function SignupForm(props) {
   const [data, setData] = useState([]);
   const [pressed, setPressed] = useState(false);
-  /*   const [userArray] = useState([]);
-   */ /*   let isObjectEmpty = !Object.keys(data).length;
-   */ console.log(props);
+  console.log(props);
   useEffect(() => {
     props.status && setData(data => [...data, props.status]);
-    /*     userArray.push(props.status);
-     */
   }, [props.status]);
-  /* useEffect(() => {
-    !isObjectEmpty && userArray.push(data);
-  }, [data]); */
+
   return (
     <div className="main-form signup-div">
+      <ScrollAnimation animateIn="fadeIn" className="form-img-div">
+        <img src={truckPic} alt="coffee truck" />
+      </ScrollAnimation>
       <Form>
         <h2 className="form-title">Create Your Account</h2>
         <FormGroup>
@@ -143,13 +142,30 @@ export default withFormik({
   handleSubmit: (values, formikBag) => {
     console.log("submitting...", formikBag);
 
-    axios
-      .post("https://reqres.in/api/users/", values)
-      .then(res => {
-        console.log(res);
-        formikBag.setStatus(res.data);
-        formikBag.resetForm();
-      })
-      .catch(err => console.log(err.response));
+    if (values.select === "vendor") {
+      axios
+        .post(
+          "https://foodtrucktrackr.herokuapp.com/api/register/operators",
+          values
+        )
+        .then(res => {
+          console.log(values);
+          formikBag.setStatus(res.data);
+          formikBag.resetForm();
+        })
+        .catch(err => console.log(err.response));
+    } else {
+      axios
+        .post(
+          "https://foodtrucktrackr.herokuapp.com/api/register/diners",
+          values
+        )
+        .then(res => {
+          console.log(values);
+          formikBag.setStatus(res.data);
+          formikBag.resetForm();
+        })
+        .catch(err => console.log(err.response));
+    }
   }
 })(SignupForm);
