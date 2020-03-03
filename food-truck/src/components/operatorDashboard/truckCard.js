@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Card, CardContent, CardMedia, CardActionArea, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import CancelTwoTone from '@material-ui/icons/CancelTwoTone';
-// import DeleteTruck from './deletetruck';
+ import DeleteTruck from './deleteTruck';
 
 const Container = styled.section`
 .MuiPaper-root {
