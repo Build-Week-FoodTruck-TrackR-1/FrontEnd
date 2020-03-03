@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { TextField, Button, AppBar, Toolbar, Dialog, DialogTitle, Box, Paper, Typography} from '@material-ui/core';
-import * as yup from 'yup';
 import { connect } from 'react-redux';
-import { editUserInformation } from '../../actions';
+import { addMenuItem } from '../../actions/index';
+import * as yup from 'yup';
 
 const Container = styled.section`
     .MuiPaper-root {
@@ -50,7 +50,7 @@ const Container = styled.section`
     }
 `;
 
-const EditUserInformation = (props) => {
+const AddMenuItem = (props) => {
 
     const { onClose, open } = props;
 
@@ -58,17 +58,32 @@ const EditUserInformation = (props) => {
         onClose();
     }
 
+    
+    const [file, setFile] = React.useState({});
+    const useFile = React.useRef();
+
+    const clickFile = () => {
+
+        useFile.current.click();
+    }
+
+    const getFile = event => {
+
+        const file = new Blob([event.currentTarget.files[0]], {type: event.currentTarget.files[0].type})
+        console.log(file);
+        setFile({
+            preview: URL.createObjectURL(file),
+            raw: file,
+        })
+    }
+
     const handleSubmit = (data) => {
 
-        const formattedData = {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-           location: {lat: data.latitude, long: data.longitude}        
-        }   
-
-        props.editUserInformation(formattedData);
-
+        
+        data.id = window.location.pathname.split('/')[2];
+        
+        console.log(data);
+        props.addMenuItem(data);
     }
 
     return (
@@ -78,40 +93,43 @@ const EditUserInformation = (props) => {
         open={open}>
             <Container>
                 <Paper>
-                    <DialogTitle>Edit User Information</DialogTitle> 
-               
+                    <DialogTitle>Edit Menu Item</DialogTitle> 
+                    <form>
+              
+                    <div id="overlay-container">
+                        {/* <img src={ file.preview || truckImage} onClick={clickFile} id="image" alt="truck" /> */}
+                        <input name="file" type="file" ref={useFile} style={{display: "none"}} onChange={getFile}/>
+                    </div>      
+
+                    </form>
                    <Formik initialValues={{}} 
                             onSubmit={ (data, {setSubmitting}) => {
 
                                 setSubmitting(true);
 
-                                console.log(data);
-
                                 handleSubmit(data);
-                                
+
                                 setSubmitting(false);
+                                localStorage.setItem('state', JSON.stringify(props.state));
                                 handleClose();
                                 
                             }}
                             >
                              {({values, errors, isSubmitting}) => (
                                 <Form>
-                                       <Field placeholder="First Name" name="firstName" type="input" as={TextField}></Field>
-                                        <ErrorMessage name="firstName" render={ msg => <div className="error">{msg}</div>} />
+                                    <Field placeholder="Item Name" name="itemName" type="input" as={TextField}></Field>
+                                    <ErrorMessage name="name" render={ msg => <div className="error">{msg}</div>} />
 
-                                        <Field placeholder="Last Name" name="lastName" type="input" as={TextField}></Field>
-                                        <ErrorMessage name="lastName" render={ msg => <div className="error">{msg}</div>} />
+                                    <Field placeholder="Description" inputProps={{maxLength: 120}} name="description" type="input"  multiline={true} rows={7} rowsMax={7} className="description" as={TextField}></Field>
+                                    <ErrorMessage name="description" render={ msg => <div className="error">{msg}</div>} />
 
-                                        <Field placeholder="E-Mail" name="email" type="email" as={TextField}></Field>
-                                        <ErrorMessage name="email" render={ msg => <div className="error">{msg}</div>} />
+                                    <Field placeholder="Catagory" name="catagory" type="input" as={TextField}></Field>
+                                    <ErrorMessage name="catagory" render={ msg => <div className="error">{msg}</div>} />
 
-                                        <Field placeholder="Longitude" name="longitude" type="number" as={TextField}></Field>
-                                        <ErrorMessage name="longitude" render={ msg => <div className="error">{msg}</div>} />
+                                    <Field placeholder="Price" name="price" type="number" as={TextField}></Field>
+                                    <ErrorMessage name="price" render={ msg => <div className="error">{msg}</div>} />
 
-                                        <Field placeholder="Latitude" name="latitude" type="number" as={TextField}></Field>
-                                        <ErrorMessage name="latitude" render={ msg => <div className="error">{msg}</div>} />
-
-                                        <Button type="submit" disabled={ !!Object.keys(errors).length || isSubmitting || false}>Submit</Button>
+                                    <Button type="submit" disabled={!!Object.keys(errors).length || isSubmitting || false}>Submit</Button>
                                 </Form>
                                 
                              )}
@@ -126,7 +144,7 @@ const EditUserInformation = (props) => {
 }
 const mapStateToProps = state => {
     return {
-        state: state
+        state: state 
     }
 }
-export default connect(mapStateToProps, { editUserInformation })(EditUserInformation);
+export default connect(mapStateToProps, {addMenuItem})(AddMenuItem);

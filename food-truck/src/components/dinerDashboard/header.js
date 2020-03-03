@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Typography, Button, AppBar, Toolbar} from '@material-ui/core';
-import EditUserInformation from './edituserinformation';
+import EditUserInformation from './updateUserInfo';
 import { connect } from 'react-redux';
 import { signOut } from '../../actions';
 

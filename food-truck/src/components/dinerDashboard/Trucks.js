@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import standInImage from '../../images/delivery-truck-png-7.png'
 import { Typography, Button, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -52,7 +51,7 @@ const Truck = (props) => {
 
 
     return (<Container>
-        <img src={standInImage}></img>
+   
 
         
         <div>

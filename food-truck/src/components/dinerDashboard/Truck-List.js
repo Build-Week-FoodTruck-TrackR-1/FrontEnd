@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Truck from './truck';
+import Truck from './Trucks';
 import { Divider } from '@material-ui/core';
 import { connect } from 'react-redux';
 const Container = styled.section`
