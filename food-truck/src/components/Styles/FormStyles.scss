@@ -1,38 +1,145 @@
+@import url("https://fonts.googleapis.com/css?family=Acme|Montserrat:500&display=swap");
+$phone: 400px;
+$smallTablet: 520px;
+$tablet: 600px;
+$largeTablet: 800px;
+$smallScreen: 900px;
+
 .form-title {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
+  font-family: "Acme";
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+button.MuiButtonBase-root {
+  background-color: #28243d;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  &:hover {
+    color: black;
   }
-  
-  .App-link {
-    color:orange;
+}
+
+.feedback {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+  margin-bottom: 0;
+}
+
+ul {
+  padding: 2rem;
+  border: 2px solid white;
+}
+
+.main-form {
+  padding: 3rem;
+  background: #e6ebf5;
+  width: 80%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-around;
+  @media screen and (max-width: $smallScreen) {
+    flex-direction: column;
   }
-  
-  .btn {
-    margin-top: 1rem;
-    margin-bottom: 4rem;
+}
+
+form {
+  h2 {
+    font-size: 2rem;
   }
-  
-  .feedback {
+  width: 40%;
+  @media screen and (max-width: $smallScreen) {
+    width: 70%;
+  }
+  @media screen and (max-width: $tablet) {
+    width: 90%;
+  }
+  @media screen and (max-width: $phone) {
     width: 100%;
-    margin-top: 0.25rem;
-    font-size: 80%;
-    color: #dc3545;
-    margin-bottom: 0;
   }
-  
-  ul {
-    padding: 2rem;
-    border: 2px solid white;
+  h2 {
+    @media screen and (max-width: $smallScreen) {
+      font-size: 1.5rem;
+    }
   }
-  
-  .main-form {
-    padding: 3rem;
-    background: white;
-    width: 60%;
+}
+.main-form.signup-div {
+  @media screen and (max-width: $smallScreen) {
+    margin-top: 8rem;
   }
-  .main-form.signup-div {
-    margin-top: 5rem;
+  .form-img-div {
+    width: 50%;
+    @media screen and (max-width: $smallScreen) {
+      width: 70%;
+    }
+    @media screen and (max-width: $tablet) {
+      width: 90%;
+    }
+    img {
+      width: 100%;
+      @media screen and (max-width: $smallScreen) {
+        margin-bottom: 1rem;
+      }
+    }
   }
-  
-  .form-control.select {
-    margin-top: 2rem;
+  .signupForm {
+    width: 30%;
+    @media screen and (max-width: $smallScreen) {
+      width: 60%;
+    }
+    @media screen and (max-width: $tablet) {
+      width: 80%;
+    }
+    @media screen and (max-width: $phone) {
+      width: 100%;
+    }
+    h2 {
+      @media screen and (max-width: $smallScreen) {
+        font-size: 1.5rem;
+      }
+    }
   }
+}
+
+//variant for initial.js//
+.main-form.initial-div {
+  width: 100%;
+
+  .form-img-div {
+    width: 50%;
+    @media screen and (max-width: $smallScreen) {
+      width: 70%;
+    }
+    @media screen and (max-width: $tablet) {
+      width: 90%;
+    }
+    img {
+      width: 100%;
+      @media screen and (max-width: $smallScreen) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  .error {
+    color: red;
+    font-size: 50%;
+    align-self: flex-start;
+    margin-top: 0.2rem;
+  }
+}
+
+.form-control.select {
+  margin-top: 2rem;
+}
+
+input {
+  margin-top: 0.5rem;
+  width: 80%;
+}
