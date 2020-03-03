@@ -1,87 +1,87 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Formik, Field, ErrorMessage, Form, useField } from 'formik';
-import { TextField, Button, AppBar, Typography, Toolbar, Radio, FormControlLabel} from '@material-ui/core';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { login } from '../../actions';
+import React from "react";
+import "../Styles/FormStyles.scss";
+import { FormGroup } from "reactstrap";
+import { Link } from "react-router-dom";
 
+import { Formik, Field, ErrorMessage, Form, useField } from "formik";
+import { TextField, Button } from "@material-ui/core";
+import ScrollAnimation from "react-animate-on-scroll";
+import truckPic from "../../images/mexican-truck.png";
 
-const Container = styled.section`
-    header {
-        div {
-            display: flex;
-            justify-content: center;
-        }
-    }
-    form {
-        display: flex;
-        flex-flow: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 10%;
-        button {
-            margin: 5% 0;
-        }
-        div {
-            margin 2.5% 0;
-        }
-       
-    }
-    
-`;
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { login } from "../../actions";
 
+const Login = props => {
+  const handleLogin = data => {
+    props.login(data);
+  };
 
-const Login = (props) => {
+  return (
+    <div className="main-form signup-div">
+      <ScrollAnimation animateIn="fadeIn" className="form-img-div">
+        <img src={truckPic} alt="coffee truck" />
+      </ScrollAnimation>
 
-    const handleLogin = (data) => {
+      <Formik
+        initialValues={{}}
+        onSubmit={(data, { setSubmitting }) => {
+          handleLogin(data);
 
-        props.login(data);
-        
-          
-    }
+          console.log(props.state);
 
-    return(<Container>
-         <AppBar position="static" elevation="0">
-                                <Toolbar>
-                                    <Typography>Login</Typography>
-                                </Toolbar>
-                            </AppBar>
-       <Formik initialValues ={{}}
-       onSubmit={ (data, { setSubmitting }) => {
-            
-            handleLogin(data);
+          console.log(localStorage.getItem("state"));
 
-            console.log(props.state);
+          console.log(localStorage.getItem("state"));
+          if (localStorage.getItem("state").currentUser.hasOwnProperty("id")) {
+            localStorage.getItem("role") === "Operator"
+              ? props.history.push("/operatordashboard")
+              : props.history.push("/dinerdashboard");
+          }
+        }}
+      >
+        {({ values, errors, isSubmitting }) => (
+          <Form>
+            <h2 className="form-title">Welcome Back</h2>
+            <FormGroup>
+              <Field
+                atype="input"
+                name="username"
+                label="username"
+                variant="outlined"
+                fullWidth
+                as={TextField}
+              />
+            </FormGroup>
 
-            console.log(localStorage.getItem('state'));
-          
-
-            console.log(localStorage.getItem('state'));
-            if(localStorage.getItem('state').currentUser.hasOwnProperty('id')) {
-            localStorage.getItem('role') === "Operator" ? (
-            props.history.push("/operatordashboard") 
-            ):(
-            props.history.push("/dinerdashboard"))
-            }}}>
-       {({values, errors, isSubmitting}) =>( 
-           <Form>
-               <Field placeholder="username" atype="input" name="username" as={TextField} />
-               <Field placeholder="password" type="password" name="password" as={TextField}/>
-               <Button type="submit">Login</Button>
-               
-           </Form>
-       )} 
-         
-       </Formik>
-    </Container>);
+            <FormGroup>
+              <Field
+                type="password"
+                name="password"
+                label="password"
+                variant="outlined"
+                fullWidth
+                as={TextField}
+              />
+            </FormGroup>
+            <Button type="submit">Login</Button>
+            <FormGroup>
+              Don't have an Account? {"  "}
+              <Link to="/register" variant="body2">
+                {`register`}
+              </Link>
+            </FormGroup>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
 };
 
 const mapStateToProps = state => {
+  return {
+    state: state
+  };
+};
 
-    return {
-        state: state
-    };
-}
-
-export default connect(mapStateToProps, { login })(withRouter(Login)); 
+export default connect(mapStateToProps, { login })(withRouter(Login));
