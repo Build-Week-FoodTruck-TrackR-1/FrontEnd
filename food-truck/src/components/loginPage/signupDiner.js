@@ -11,7 +11,7 @@ import {
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import { addDiner } from "../../actions";
-import uuid from "react-uuid";
+/* import uuid from "react-uuid"; */
 import ScrollAnimation from "react-animate-on-scroll";
 import { FormGroup } from "reactstrap";
 import truckPicture from "../../images/truck2.png";
@@ -70,11 +70,11 @@ const DinerSignUp = props => {
           setSubmitting(true);
 
           props.addDiner({
-            id: uuid(),
+            /*id: uuid(),*/
             Role: "Diner",
-            favoriteTrucks: [],
+            /*favoriteTrucks: [],
             firstName: data.firstName,
-            lastName: data.lastName,
+            lastName: data.lastName,*/
             username: data.username,
             password: data.password,
             email: data.email,
@@ -90,7 +90,7 @@ const DinerSignUp = props => {
           <Form className="signupForm">
             <h2 className="form-title">Create Your Account</h2>
 
-            <FormGroup>
+            {/* <FormGroup>
               <Field
                 label="First Name"
                 name="firstName"
@@ -116,7 +116,7 @@ const DinerSignUp = props => {
                 name="lastName"
                 render={msg => <div className="error">{msg}</div>}
               />
-            </FormGroup>
+            </FormGroup> */}
             <FormGroup>
               <Field
                 placeholder="Username"
