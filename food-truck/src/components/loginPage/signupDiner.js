@@ -56,6 +56,9 @@ const Container = styled.section`
 `;
 
 const DinerSignUp = props => {
+ 
+
+
   return (
     <div className="main-form signup-div">
       <ScrollAnimation animateIn="fadeIn" className="form-img-div">

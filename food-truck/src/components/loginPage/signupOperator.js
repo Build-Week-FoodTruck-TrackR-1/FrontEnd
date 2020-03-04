@@ -9,6 +9,7 @@ import AddMenu from "../operatorSignup/addMenu";
 import { connect } from "react-redux";
 import { addOperator } from "../../actions";
 import uuid from "react-uuid";
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 const Container = styled.section`
   width: 100vw;

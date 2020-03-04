@@ -1,6 +1,6 @@
-import Axios from 'axios';
+import axios from 'axios';
 import { currentOperatorTest } from "./testData";
-
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 export const ADD_OPERATOR = "ADD_OPERATOR";
 export const ADD_DINER = "ADD_DINER";
@@ -27,15 +27,17 @@ export const rememberStateOnRefresh = state => {
 }
 
 export const addOperator = formData => {
-
+    dispatch({ type: ADD_OPERATOR});
+    (await axiosWithAuth())
+       .post(`auth/register/operators`, formData)
+       .then(response => {
     console.log(formData);
 
     return {
 
-        type: ADD_OPERATOR,
         payload: formData
     };
-};
+});
 
 export const addDiner = formData => {
 
@@ -64,7 +66,17 @@ export const addDiner = formData => {
 };
 
 export const deleteTruck = id => {
-
+    axiosWithAuth()
+    .delete('operator/2/truck/3', {
+        name: truck.name
+    })
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        console.log(err.message)
+    })
+    
     return {
 
         type: DELETE_TRUCK,
@@ -202,3 +214,4 @@ export const login = data => {
     } 
     
 };
+}
