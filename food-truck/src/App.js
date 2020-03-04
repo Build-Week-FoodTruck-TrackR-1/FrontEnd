@@ -96,9 +96,9 @@ function App(props) {
           <IndexRoute exact path="/" component={LoginPage} />
           <IndexRoute exact path="/register" component={RegisterChoice} />
 
-          <DinerRoute path="/dinerdashboard" component={DinerDashboard} />
+          <DinerRoute exact path="/dinerdashboard" component={DinerDashboard} />
           <OperatorRoute
-            path="/operatordashboard"
+            exact path="/operatordashboard"
             component={OperatorDashboard}
           />
           <TruckPageRoute path="/truckpage/:id" component={TruckPage} />

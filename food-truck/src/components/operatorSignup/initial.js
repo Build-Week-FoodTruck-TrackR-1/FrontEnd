@@ -40,33 +40,20 @@ import * as yup from "yup";
  */
 
 const validationSchema = yup.object().shape({
-<<<<<<< HEAD
-  firstName: yup
-=======
   /* firstName: yup
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
     .string()
     .required()
     .max(15),
   lastName: yup
     .string()
     .required()
-<<<<<<< HEAD
-    .max(30),
-=======
     .max(30), */
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
   username: yup
     .string()
     .required()
     .max(15),
-<<<<<<< HEAD
-  businessName: yup.string().required(),
-  password: yup.string().required(),
-=======
   /*   businessName: yup.string().required(),
    */ password: yup.string().required(),
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
   email: yup.string().required()
 });
 
@@ -100,11 +87,7 @@ const InitialForm = props => {
           <Form>
             <h2 className="form-title">Create Your Account</h2>
 
-<<<<<<< HEAD
-            <FormGroup>
-=======
             {/* <FormGroup>
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
               <Field
                 label="First Name"
                 name="firstName"
@@ -130,11 +113,7 @@ const InitialForm = props => {
                 name="lastName"
                 render={msg => <div className="error">{msg}</div>}
               />
-<<<<<<< HEAD
-            </FormGroup>
-=======
             </FormGroup> */}
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
             <FormGroup>
               <Field
                 label="Username"
@@ -142,10 +121,7 @@ const InitialForm = props => {
                 type="input"
                 as={TextField}
                 fullWidth
-<<<<<<< HEAD
-=======
                 variant="outlined"
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
               ></Field>
               <ErrorMessage
                 name="username"
@@ -187,37 +163,23 @@ const InitialForm = props => {
                 type="email"
                 as={TextField}
                 fullWidth
-<<<<<<< HEAD
-=======
                 variant="outlined"
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
               ></Field>
               <ErrorMessage
                 name="email"
                 render={msg => <div className="error">{msg}</div>}
               />
             </FormGroup>
-<<<<<<< HEAD
             <FormGroup>
-=======
-            {/* <FormGroup>
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
-              <Field
                 label="Bussiness Name"
-                name="businessName"
                 type="input"
                 as={TextField}
                 fullWidth
-              ></Field>
+            </FormGroup>
               <ErrorMessage
                 name="businessName"
                 render={msg => <div className="error">{msg}</div>}
               />
-<<<<<<< HEAD
-            </FormGroup>
-=======
-            </FormGroup> */}
->>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
             <FormGroup>
               <Button
                 type="submit"

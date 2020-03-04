@@ -8,8 +8,7 @@ import AddTruck from "../operatorSignup/addTrucks";
 import AddMenu from "../operatorSignup/addMenu";
 import { connect } from "react-redux";
 import { addOperator } from "../../actions";
-import uuid from "react-uuid";
-import { axiosWithAuth } from '../../utils/axiosWithAuth';
+
 
 const Container = styled.section`
   width: 100vw;
@@ -60,7 +59,6 @@ const SignupOperator = props => {
   const submit = () => {
     const formattedForm = {
       Role: "Operator",
-      id: uuid(),
       firstName: formValues.firstName,
       lastName: formValues.lastName,
       username: formValues.username,

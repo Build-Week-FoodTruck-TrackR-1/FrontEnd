@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Typography, Button, AppBar, Toolbar} from '@material-ui/core';
 import EditUserInformation from './updateUserInfo';
 import { connect } from 'react-redux';
-// import { signOut } from '../../actions';
+import { signOut } from '../../actions';
 
 const Container = styled.section`
     p, button {

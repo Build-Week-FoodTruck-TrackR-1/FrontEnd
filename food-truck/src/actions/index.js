@@ -1,8 +1,10 @@
 import Axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 // import { currentOperatorTest } from "../testdata";
 
-
-export const ADD_OPERATOR = "ADD_OPERATOR";
+export const ADD_OPERATOR_START = "ADD_OPERATOR_START";
+export const ADD_OPERATOR_SUCCESS= "ADD_OPERATOR_SUCCESS";
+export const ADD_OPERATOR_FAIL = "ADD_OPERATOR_FAIL";
 export const ADD_DINER = "ADD_DINER";
 export const EDIT_TRUCK = "EDIT_TRUCK";
 export const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
@@ -30,41 +32,29 @@ export const rememberStateOnRefresh = state => {
     };
 }
 
-export const addOperator = formData => {
-
+export const addOperator = formData => dispatch => {
+  dispatch({ type: ADD_OPERATOR_START})
+  axiosWithAuth
+  .post('/auth/register/operators', formData)
+  .then(res => {
+      dispatch({
+          type: ADD_OPERATOR_SUCCESS,
+          payload: res.data
+      })
+  })
+  .catch(err => {
+      dispatch({
+          type: ADD_OPERATOR_FAIL, 
+          payload: err
+      })
+  })
     console.log(formData);
 
-    return {
-
-        type: ADD_OPERATOR,
-        payload: formData
-    };
 };
 
 export const addDiner = formData => {
 
-    console.log(formData);
-
-    const operators = currentOperatorTest.filter(user => {
-        return user.hasOwnProperty("trucks");
-    });
-
-    let trucks = [];
-            operators.forEach( operator => {
-                Array.prototype.push.apply(trucks, operator.trucks);
-            });
-
-            const formattedData = {
-                operators: operators,
-                trucks: trucks,
-                currentUser: formData
-            };
-
-    return {
-
-        type: ADD_DINER,
-        payload: formattedData
-    };
+    
 };
 
 export const deleteTruck = id => {
@@ -147,68 +137,6 @@ export const signOut = _ => {
 
 export const login = data => {
 
-    console.log(data);
- 
-    const user = currentOperatorTest.filter( user => {
-        return user.username === data.username 
-    });
-
-    console.log(user[0]);
-
     
-
-    if(user[0].password === data.password){
-        console.log("inside");
-        if(user.Role === "Operator"){
-
-            console.log('user.role');
-            localStorage.setItem("role", JSON.stringify(user[0].Role));
-            localStorage.setItem('state', JSON.stringify(user[0]));
-
-            return {
-                type: OPERATOR_LOGIN,
-                payload: user[0]
-            }
-
+    
         }
-        else{
-
-
-            const operators = currentOperatorTest.filter(user => {
-                return user.hasOwnProperty("trucks");
-            });
-
-            console.log(operators);
-
-            let trucks = [];
-            operators.forEach( operator => {
-                Array.prototype.push.apply(trucks, operator.trucks);
-            });
-
-            const formattedData = {
-                operators: operators,
-                trucks: trucks,
-                currentUser: user[0]
-            };
-
-            console.log(formattedData);
-            localStorage.setItem("role", JSON.stringify(formattedData.currentUser.Role));
-            localStorage.setItem('state', JSON.stringify(formattedData));
-
-            return{
-                type: DINER_LOGIN,
-                payload: formattedData
-            }
-
-        }
-
-    }
-    else{
-
-        alert("Username or password was incorrect");
-    }
-    
-    
-    
-    
-};

@@ -70,7 +70,6 @@ const DinerSignUp = props => {
           setSubmitting(true);
 
           props.addDiner({
-            id: uuid(),
             Role: "Diner",
             favoriteTrucks: [],
             firstName: data.firstName,

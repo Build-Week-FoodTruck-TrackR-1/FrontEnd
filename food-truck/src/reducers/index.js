@@ -1,7 +1,7 @@
-import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON_REFRESH
+import { ADD_OPERATOR_SUCCESS, ADD_OPERATOR_START, ADD_OPERATOR_FAIL, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON_REFRESH
     , EDIT_MENU_ITEM, EDIT_TRUCK, ADD_MENU_ITEM, DELETE_TRUCK, SIGN_OUT, 
     ADD_REVIEW, CHANGE_FAVORITE, EDIT_OPERATOR_INFORMATION, EDIT_DINER_INFORMATION } from "../actions";
-    import uuid from 'react-uuid';
+   // import uuid from 'react-uuid';
     
     
     const initialState = {
@@ -89,7 +89,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                             name: action.payload.itemName,
                             description: action.payload.description,
                             price: action.payload.price,
-                            id: uuid()
+
                         }]
     
                         console.log(trucks);
@@ -113,7 +113,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                         { name: action.payload.itemName,
                             description: action.payload.description,
                             price: action.payload.price,
-                            id: uuid()
+                            
                         }];
     
     
@@ -184,7 +184,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                     itemTruckList[itemTruckListIndex].catagorys[action.payload.catagory] = [
                         ...itemTruckList[itemTruckListIndex].catagorys[action.payload.catagory],
                         {
-                            id: uuid(),
+                            
                             name: action.payload.itemName,
                             description: action.payload.description,
                             price: action.payload.price,
@@ -197,7 +197,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                 else {
     
                     itemTruckList[itemTruckListIndex].catagorys[action.payload.catagory] = [{
-                        id: uuid(),
+                        
                         name: action.payload.itemName,
                         description: action.payload.description,
                         price: action.payload.price,
@@ -214,8 +214,12 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
             console.log(action.payload);
     
                 return JSON.parse(localStorage.getItem('state'));
-    
-            case ADD_OPERATOR: 
+            
+            case ADD_OPERATOR_START:
+               return {
+                   ...state
+               }
+            case ADD_OPERATOR_SUCCESS:
     
                 console.log("here");
     
@@ -223,6 +227,11 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                 localStorage.setItem('role', JSON.stringify(action.payload.Role));
     
                 return {currentUser: action.payload}
+
+            case ADD_OPERATOR_FAIL:
+               return {
+                   ...state
+               }
             
             case ADD_DINER: 
     
@@ -291,7 +300,6 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                 }
     
             }
-    
     
             case OPERATOR_LOGIN:
     
