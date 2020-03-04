@@ -11,7 +11,7 @@ import {
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import { addDiner } from "../../actions";
-import uuid from "react-uuid";
+// import uuid from "react-uuid";
 import ScrollAnimation from "react-animate-on-scroll";
 import { FormGroup } from "reactstrap";
 import truckPicture from "../../images/truck2.png";

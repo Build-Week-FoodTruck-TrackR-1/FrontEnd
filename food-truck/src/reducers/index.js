@@ -2,12 +2,14 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
     , EDIT_MENU_ITEM, EDIT_TRUCK, ADD_MENU_ITEM, DELETE_TRUCK, SIGN_OUT, 
     ADD_REVIEW, CHANGE_FAVORITE, EDIT_OPERATOR_INFORMATION, EDIT_DINER_INFORMATION } from "../actions";
     import uuid from 'react-uuid';
-     
+    
+    
     const initialState = {
         currentUser: {}
     
     };
-      
+    
+    
     function reducer (state = initialState, action) {
     
         console.log("here");
@@ -48,6 +50,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                                      lastName: action.payload.lastName,
                                      email: action.payload.email,
                                      businessName: action.payload.businessName}});
+    
     
             case EDIT_MENU_ITEM:
     
@@ -103,6 +106,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                             return item.id !== action.payload.id
                         });
     
+    
                         trucks[truckIndex].catagorys[action.payload.currentCatagory] = filteredCatagory;
                         trucks[truckIndex].catagorys[action.payload.catagory] = 
                         [...trucks[truckIndex].catagorys[action.payload.catagory],
@@ -111,6 +115,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                             price: action.payload.price,
                             id: uuid()
                         }];
+    
     
                         return {...state,
                         currentUser: {...state.currentUser,
@@ -164,7 +169,8 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                 }
     
             case ADD_MENU_ITEM:
-
+    
+    
                 let itemTruckList = state.currentUser.trucks 
                 const itemTruckListIndex = itemTruckList.findIndex( truck => {
                     return truck.id === action.payload.id
@@ -201,6 +207,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                         currentUser: {...state.currentUser,
                         trucks: itemTruckList}}
                 }
+    
     
             case REMEMBER_STATE_ON_REFRESH: 
             
@@ -268,7 +275,8 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                    const favoriteTrucks = state.currentUser.favoriteTrucks.filter( truck => {
                         return truck !== action.payload.truckId
                    });
-           
+    
+                   
                    let ls = JSON.parse(localStorage.getItem('state'));
                    ls.currentUser.favoriteTrucks = favoriteTrucks;
                    localStorage.setItem('state', JSON.stringify(ls));
@@ -279,9 +287,11 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                                 favoriteTrucks: favoriteTrucks}
                 }
     
+    
                 }
     
             }
+    
     
             case OPERATOR_LOGIN:
     
@@ -304,6 +314,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                     return state;
     
         }
+    
     };
     
     export default reducer;
