@@ -40,20 +40,20 @@ import * as yup from "yup";
  */
 
 const validationSchema = yup.object().shape({
-  firstName: yup
+  /* firstName: yup
     .string()
     .required()
     .max(15),
   lastName: yup
     .string()
     .required()
-    .max(30),
+    .max(30), */
   username: yup
     .string()
     .required()
     .max(15),
-  businessName: yup.string().required(),
-  password: yup.string().required(),
+  /*   businessName: yup.string().required(),
+   */ password: yup.string().required(),
   email: yup.string().required()
 });
 
@@ -87,7 +87,7 @@ const InitialForm = props => {
           <Form>
             <h2 className="form-title">Create Your Account</h2>
 
-            <FormGroup>
+            {/* <FormGroup>
               <Field
                 label="First Name"
                 name="firstName"
@@ -113,7 +113,7 @@ const InitialForm = props => {
                 name="lastName"
                 render={msg => <div className="error">{msg}</div>}
               />
-            </FormGroup>
+            </FormGroup> */}
             <FormGroup>
               <Field
                 label="Username"
@@ -121,6 +121,7 @@ const InitialForm = props => {
                 type="input"
                 as={TextField}
                 fullWidth
+                variant="outlined"
               ></Field>
               <ErrorMessage
                 name="username"
@@ -162,13 +163,14 @@ const InitialForm = props => {
                 type="email"
                 as={TextField}
                 fullWidth
+                variant="outlined"
               ></Field>
               <ErrorMessage
                 name="email"
                 render={msg => <div className="error">{msg}</div>}
               />
             </FormGroup>
-            <FormGroup>
+            {/* <FormGroup>
               <Field
                 label="Bussiness Name"
                 name="businessName"
@@ -180,7 +182,7 @@ const InitialForm = props => {
                 name="businessName"
                 render={msg => <div className="error">{msg}</div>}
               />
-            </FormGroup>
+            </FormGroup> */}
             <FormGroup>
               <Button
                 type="submit"

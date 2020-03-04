@@ -27,6 +27,7 @@ const Container = styled.section`
   }
   .MuiPaper-root {
     background: #e6ebf5;
+    margin-bottom: 3rem;
   }
   section {
     display: flex;
@@ -41,15 +42,15 @@ const Container = styled.section`
 const SignupOperator = props => {
   const [step, setStep] = useState(1);
   const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
+    /* firstName: "",
+    lastName: "", */
     username: "",
     password: "",
-    email: "",
-    businessName: "",
+    email: ""
+    /* businessName: "",
     truckNumber: -1,
     items: -1,
-    trucks: []
+    trucks: [] */
   });
 
   const nextStep = stepNumber => {
@@ -61,13 +62,13 @@ const SignupOperator = props => {
     const formattedForm = {
       Role: "Operator",
       id: uuid(),
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
+      /* firstName: formValues.firstName,
+      lastName: formValues.lastName, */
       username: formValues.username,
       password: formValues.password,
-      email: formValues.email,
-      businessName: formValues.businessName,
-      trucks: formValues.trucks
+      email: formValues.email
+      /* businessName: formValues.businessName,
+      trucks: formValues.trucks */
     };
 
     props.addOperator(formattedForm);
@@ -81,23 +82,21 @@ const SignupOperator = props => {
         <Container>
           <Paper>
             <AppBar position="static" color="inherit" elevation="0">
-              <Toolbar>
-                <Typography>Step 1</Typography>
-              </Toolbar>
+              <Toolbar></Toolbar>
             </AppBar>
             <InitialForm
               step={nextStep}
               submit={setFormValues}
               form={formValues}
             />
-            <AppBar id="footer" position="static" color="inherit" elevation="0">
+            {/* <AppBar id="footer" position="static" color="inherit" elevation="0">
               <Toolbar></Toolbar>
-            </AppBar>
+            </AppBar> */}
           </Paper>
         </Container>
       );
 
-    case 2:
+    /* case 2:
       return (
         <Container>
           <Paper>
@@ -174,7 +173,7 @@ const SignupOperator = props => {
         <Container>
           <p>how did you get here?</p>
         </Container>
-      );
+      ); */
   }
 };
 
