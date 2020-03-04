@@ -29,4 +29,8 @@ function RegisterChoice() {
   );
 }
 
+<<<<<<< HEAD
 export default RegisterChoice;
+=======
+export default RegisterChoice;
+>>>>>>> 089800b992ffc3ec8d41aca9fe3935ca9bbcb950
