@@ -60,8 +60,7 @@ const SignupOperator = props => {
 
   const submit = () => {
     const formattedForm = {
-      Role: "Operator",
-      id: uuid(),
+      // Role: "Operator",
       /* firstName: formValues.firstName,
       lastName: formValues.lastName, */
       username: formValues.username,

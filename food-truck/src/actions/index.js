@@ -1,14 +1,20 @@
-import Axios from 'axios';
-import { currentOperatorTest } from "./testData";
+import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
+// import { currentOperatorTest } from "../testdata";
 
-
-export const ADD_OPERATOR = "ADD_OPERATOR";
-export const ADD_DINER = "ADD_DINER";
+export const ADD_OPERATOR_START = "ADD_OPERATOR_START";
+export const ADD_OPERATOR_SUCCESS= "ADD_OPERATOR_SUCCESS";
+export const ADD_OPERATOR_FAIL = "ADD_OPERATOR_FAIL";
+export const ADD_DINER_START = "ADD_DINER_START";
+export const ADD_DINER_SUCCESS = "ADD_DINER_SUCCESS";
+export const ADD_DINER_FAIL = "ADD_DINER_FAIL";
 export const EDIT_TRUCK = "EDIT_TRUCK";
 export const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
 export const ADD_REVIEW = "ADD_REVIEW";
 export const OPERATOR_LOGIN = "OPERATOR_LOGIN";
-export const DINER_LOGIN = "DINER_LOGIN";
+export const DINER_LOGIN_START = "DINER_LOGIN_START";
+export const DINER_LOGIN_SUCCESS = "DINER_LOGIN_SUCCESS";
+export const DINER_LOGIN_FAIL = "DINER_LOGIN_FAIL";
 export const REMEMBER_STATE_ON_REFRESH = "REMEMBER_STATE_ON_REFRESH";
 export const ADD_MENU_ITEM =" ADD_MENU_ITEM";
 export const DELETE_TRUCK = "DELETE_TRUCK";
@@ -17,7 +23,11 @@ export const CHANGE_FAVORITE = "CHANGE_FAVORITE";
 export const EDIT_DINER_INFORMATION = "EDIT_DINER_INFORMATION";
 export const EDIT_OPERATOR_INFORMATION = "EDIT_OPERATOR_INFORMATION";
 
+
+
 export const rememberStateOnRefresh = state => {
+
+    
 
     return {
 
@@ -26,41 +36,44 @@ export const rememberStateOnRefresh = state => {
     };
 }
 
-export const addOperator = formData => {
-
+export const addOperator = formData => dispatch => {
+  dispatch({ type: ADD_OPERATOR_START})
+  axiosWithAuth()
+  .post('/auth/register/operators', formData)
+  .then(res => {
+      dispatch({
+          type: ADD_OPERATOR_SUCCESS,
+          payload: res.data
+      })
+  })
+  .catch(err => {
+      dispatch({
+          type: ADD_OPERATOR_FAIL, 
+          payload: err
+      })
+  })
     console.log(formData);
 
-    return {
-
-        type: ADD_OPERATOR,
-        payload: formData
-    };
 };
 
-export const addDiner = formData => {
-
-    console.log(formData);
-
-    const operators = currentOperatorTest.filter(user => {
-        return user.hasOwnProperty("trucks");
-    });
-
-    let trucks = [];
-            operators.forEach( operator => {
-                Array.prototype.push.apply(trucks, operator.trucks);
-            });
-
-            const formattedData = {
-                operators: operators,
-                trucks: trucks,
-                currentUser: formData
-            };
-
-    return {
-
-        type: ADD_DINER,
-        payload: formattedData
-    };
+export const addDiner = formData => dispatch => {
+    dispatch({ type: ADD_DINER_START})
+    axiosWithAuth()
+    .post('/auth/register/diners', formData)
+    .then(res => {
+        dispatch({
+            type: ADD_DINER_SUCCESS,
+            payload: res.data
+        })
+    })
+    .catch(err => {
+        dispatch({
+            type: ADD_DINER_FAIL, 
+            payload: err
+        })
+    })
+      console.log(formData);
+    
 };
 
 export const deleteTruck = id => {
@@ -118,21 +131,20 @@ export const addMenuItem = formData => {
     }
 }
 
-export const addReview = formData => {
+// export const addReview = formData => {
+//     return {
+//         type: ADD_REVIEW,
+//         payload: formData
+//     }
+// }
 
-    return {
-        type: ADD_REVIEW,
-        payload: formData
-    }
-}
+// export const changeFavorite = data => {
 
-export const changeFavorite = data => {
-
-    return{
-        type: CHANGE_FAVORITE,
-        payload: data
-    }
-}
+//     return{
+//         type: CHANGE_FAVORITE,
+//         payload: data
+//     }
+// }
 
 export const signOut = _ => {
 
@@ -141,64 +153,24 @@ export const signOut = _ => {
     }
 }
 
-export const login = data => {
-
-    console.log(data);
- 
-    const user = currentOperatorTest.filter( user => {
-        return user.username === data.username 
-    });
-
-    console.log(user[0]);
-
-    if(user[0].password === data.password){
-        console.log("inside");
-        if(user.Role === "Operator"){
-
-            console.log('user.role');
-            localStorage.setItem("role", JSON.stringify(user[0].Role));
-            localStorage.setItem('state', JSON.stringify(user[0]));
-
-            return {
-                type: OPERATOR_LOGIN,
-                payload: user[0]
-            }
-
-        }
-        else{
-
-
-            const operators = currentOperatorTest.filter(user => {
-                return user.hasOwnProperty("trucks");
-            });
-
-            console.log(operators);
-
-            let trucks = [];
-            operators.forEach( operator => {
-                Array.prototype.push.apply(trucks, operator.trucks);
-            });
-
-            const formattedData = {
-                operators: operators,
-                trucks: trucks,
-                currentUser: user[0]
-            };
-
-            console.log(formattedData);
-            localStorage.setItem("role", JSON.stringify(formattedData.currentUser.Role));
-            localStorage.setItem('state', JSON.stringify(formattedData));
-
-            return{
-                type: DINER_LOGIN,
-                payload: formattedData
-            }
-
-        }
-
-    }
-    else{
-        alert("Username or password was incorrect");
-    } 
+export const login = data => dispatch => {
+    dispatch({ type: DINER_LOGIN_START})
+    axiosWithAuth()
+    .post('/auth/login/operators', data)
+    .then(res => {
+        dispatch({
+            type: DINER_LOGIN_SUCCESS,
+            payload: res.data
+        })
+    })
+    .catch(err => {
+        dispatch({
+            type: DINER_LOGIN_FAIL, 
+            payload: err
+        })
+    })
+      console.log(data);
+  
     
-};
+    
+        }

@@ -1,13 +1,15 @@
-import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON_REFRESH
+import { ADD_OPERATOR_SUCCESS, ADD_OPERATOR_START, ADD_OPERATOR_FAIL, ADD_DINER_START, ADD_DINER_SUCCESS , ADD_DINER_FAIL, OPERATOR_LOGIN, DINER_LOGIN_START , DINER_LOGIN_SUCCESS , DINER_LOGIN_FAIL, REMEMBER_STATE_ON_REFRESH
     , EDIT_MENU_ITEM, EDIT_TRUCK, ADD_MENU_ITEM, DELETE_TRUCK, SIGN_OUT, 
     ADD_REVIEW, CHANGE_FAVORITE, EDIT_OPERATOR_INFORMATION, EDIT_DINER_INFORMATION } from "../actions";
-    import uuid from 'react-uuid';
-     
+   // import uuid from 'react-uuid';
+    
+    
     const initialState = {
         currentUser: {}
     
     };
-      
+    
+    
     function reducer (state = initialState, action) {
     
         console.log("here");
@@ -49,6 +51,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                                      email: action.payload.email,
                                      businessName: action.payload.businessName}});
     
+    
             case EDIT_MENU_ITEM:
     
                 const truckIndex = state.currentUser.trucks.findIndex(truck => {
@@ -86,7 +89,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                             name: action.payload.itemName,
                             description: action.payload.description,
                             price: action.payload.price,
-                            id: uuid()
+
                         }]
     
                         console.log(trucks);
@@ -103,14 +106,16 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                             return item.id !== action.payload.id
                         });
     
+    
                         trucks[truckIndex].catagorys[action.payload.currentCatagory] = filteredCatagory;
                         trucks[truckIndex].catagorys[action.payload.catagory] = 
                         [...trucks[truckIndex].catagorys[action.payload.catagory],
                         { name: action.payload.itemName,
                             description: action.payload.description,
                             price: action.payload.price,
-                            id: uuid()
+                            
                         }];
+    
     
                         return {...state,
                         currentUser: {...state.currentUser,
@@ -164,7 +169,8 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                 }
     
             case ADD_MENU_ITEM:
-
+    
+    
                 let itemTruckList = state.currentUser.trucks 
                 const itemTruckListIndex = itemTruckList.findIndex( truck => {
                     return truck.id === action.payload.id
@@ -178,7 +184,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                     itemTruckList[itemTruckListIndex].catagorys[action.payload.catagory] = [
                         ...itemTruckList[itemTruckListIndex].catagorys[action.payload.catagory],
                         {
-                            id: uuid(),
+                            
                             name: action.payload.itemName,
                             description: action.payload.description,
                             price: action.payload.price,
@@ -191,7 +197,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                 else {
     
                     itemTruckList[itemTruckListIndex].catagorys[action.payload.catagory] = [{
-                        id: uuid(),
+                        
                         name: action.payload.itemName,
                         description: action.payload.description,
                         price: action.payload.price,
@@ -202,13 +208,18 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                         trucks: itemTruckList}}
                 }
     
+    
             case REMEMBER_STATE_ON_REFRESH: 
             
             console.log(action.payload);
     
                 return JSON.parse(localStorage.getItem('state'));
-    
-            case ADD_OPERATOR: 
+            
+            case ADD_OPERATOR_START:
+               return {
+                   ...state
+               }
+            case ADD_OPERATOR_SUCCESS:
     
                 console.log("here");
     
@@ -216,8 +227,29 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                 localStorage.setItem('role', JSON.stringify(action.payload.Role));
     
                 return {currentUser: action.payload}
+
+            case ADD_OPERATOR_FAIL:
+               return {
+                   ...state
+               }
             
-            case ADD_DINER: 
+               case ADD_DINER_START:
+                return {
+                    ...state
+                }
+             case ADD_DINER_SUCCESS:
+     
+                 console.log("here");
+     
+                 localStorage.setItem('state', JSON.stringify({currentUser: action.payload}));
+                 localStorage.setItem('role', JSON.stringify(action.payload.Role));
+     
+                 return {currentUser: action.payload}
+ 
+             case ADD_DINER_FAIL:
+                return {
+                    ...state
+                }
     
                 console.log("here");
     
@@ -268,7 +300,8 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                    const favoriteTrucks = state.currentUser.favoriteTrucks.filter( truck => {
                         return truck !== action.payload.truckId
                    });
-           
+    
+                   
                    let ls = JSON.parse(localStorage.getItem('state'));
                    ls.currentUser.favoriteTrucks = favoriteTrucks;
                    localStorage.setItem('state', JSON.stringify(ls));
@@ -279,6 +312,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                                 favoriteTrucks: favoriteTrucks}
                 }
     
+    
                 }
     
             }
@@ -288,11 +322,23 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                 return({...state, 
                     currentUser: action.payload});
     
-            case DINER_LOGIN:
-    
-                    console.log("DINER");
-    
-                    return action.payload;
+                    case DINER_LOGIN_START:
+                        return {
+                            ...state
+                        }
+                     case DINER_LOGIN_SUCCESS:
+             
+                         console.log("here");
+             
+                         localStorage.setItem('state', JSON.stringify({currentUser: action.payload}));
+                         localStorage.setItem('role', JSON.stringify(action.payload.Role));
+             
+                         return {currentUser: action.payload}
+         
+                     case DINER_LOGIN_FAIL:
+                        return {
+                            ...state
+                        }
     
             case SIGN_OUT: 
     
@@ -304,6 +350,7 @@ import { ADD_OPERATOR, ADD_DINER, OPERATOR_LOGIN, DINER_LOGIN, REMEMBER_STATE_ON
                     return state;
     
         }
+    
     };
     
     export default reducer;
