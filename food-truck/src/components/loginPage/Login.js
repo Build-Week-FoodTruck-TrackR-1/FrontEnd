@@ -101,4 +101,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { loginOperator }, { loginDiner })(withRouter(Login));
+export default connect(mapStateToProps, { loginOperator, loginDiner })(withRouter(Login));
