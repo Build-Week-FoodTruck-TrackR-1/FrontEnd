@@ -11,13 +11,17 @@ export const ADD_DINER_FAIL = "ADD_DINER_FAIL";
 export const EDIT_TRUCK = "EDIT_TRUCK";
 export const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
 export const ADD_REVIEW = "ADD_REVIEW";
-export const OPERATOR_LOGIN = "OPERATOR_LOGIN";
+export const OPERATOR_LOGIN_START = "OPERATOR_LOGIN_START";
+export const OPERATOR_LOGIN_SUCCESS = "OPERATOR_LOGIN_SUCCESS";
+export const OPERATOR_LOGIN_FAIL = "OPERATOR_LOGIN_FAIL";
 export const DINER_LOGIN_START = "DINER_LOGIN_START";
 export const DINER_LOGIN_SUCCESS = "DINER_LOGIN_SUCCESS";
 export const DINER_LOGIN_FAIL = "DINER_LOGIN_FAIL";
 export const REMEMBER_STATE_ON_REFRESH = "REMEMBER_STATE_ON_REFRESH";
 export const ADD_MENU_ITEM =" ADD_MENU_ITEM";
-export const DELETE_TRUCK = "DELETE_TRUCK";
+export const DELETE_TRUCK_START = "DELETE_TRUCK_START";
+export const DELETE_TRUCK_SUCCESS = "DELETE_TRUCK_SUCCESS";
+export const DELETE_TRUCK_FAIL = "DELETE_TRUCK_FAIL";
 export const SIGN_OUT = "SIGN_OUT";
 export const CHANGE_FAVORITE = "CHANGE_FAVORITE";
 export const EDIT_DINER_INFORMATION = "EDIT_DINER_INFORMATION";
@@ -76,13 +80,19 @@ export const addDiner = formData => dispatch => {
     
 };
 
-export const deleteTruck = id => {
+export const deleteTruck = id => dispatch => {
+    dispatch({ type: DELETE_TRUCK_START})
+    axiosWithAuth()
+    .delete('/operator/2/truck/3', id)
+    .then(res => {
+        dispatch({
+            type: DELETE_TRUCK_SUCCESS, payload:res.data
+        })
+        .catch(err => ({
+            type: DELETE_TRUCK_FAIL, payload: err
+        }))
+    })
 
-    return {
-
-        type: DELETE_TRUCK,
-        payload: id
-    }
 }
 
 export const editTruck = formData => {
@@ -153,10 +163,10 @@ export const signOut = _ => {
     }
 }
 
-export const login = data => dispatch => {
+export const loginDiner = data => dispatch => {
     dispatch({ type: DINER_LOGIN_START})
     axiosWithAuth()
-    .post('/auth/login/operators', data)
+    .post('/api/accounts/diners', data)
     .then(res => {
         dispatch({
             type: DINER_LOGIN_SUCCESS,
@@ -171,6 +181,27 @@ export const login = data => dispatch => {
     })
       console.log(data);
   
-    
-    
+
         }
+
+        export const loginOperator = data => dispatch => {
+            dispatch({ type: OPERATOR_LOGIN_START})
+            axiosWithAuth()
+            .post('/auth/login/operators', data)
+            .then(res => {
+                dispatch({
+                    type: OPERATOR_LOGIN_SUCCESS,
+                    payload: res.data
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: OPERATOR_LOGIN_FAIL, 
+                    payload: err
+                })
+            })
+              console.log(data);
+          
+            
+            
+                }

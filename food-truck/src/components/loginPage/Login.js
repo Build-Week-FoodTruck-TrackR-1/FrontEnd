@@ -10,11 +10,15 @@ import truckPic from "../../images/mexican-truck.png";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { login } from "../../actions";
-
+import { loginOperator } from "../../actions";
+import { loginDiner } from "../../actions";
+ 
 const Login = props => {
-  const handleLogin = data => {
-    props.login(data);
+  const handleLoginDiner = data => {
+    props.loginDiner(data);
+  };
+  const handleLoginOperator = data => {
+    props.loginOperator(data);
   };
 
   return (
@@ -26,7 +30,10 @@ const Login = props => {
       <Formik
         initialValues={{}}
         onSubmit={(data, { setSubmitting }) => {
-          handleLogin(data);
+          if(data.select==='vendor'){handleLoginOperator(data);}else{
+            handleLoginDiner(data)
+          }
+          
 
           console.log(props.state);
 
@@ -64,6 +71,16 @@ const Login = props => {
                 as={TextField}
               />
             </FormGroup>
+            <FormGroup>
+          <Field as="select" name="select" className="form-control select">
+            <option disabled value="initial">
+              Account Type
+            </option>
+            <option value="vendor">Vendor</option>
+            <option value="customer">Customer</option>
+          </Field>
+          
+        </FormGroup>
             <Button type="submit">Login</Button>
             <FormGroup>
               Don't have an Account? {"  "}
@@ -84,4 +101,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { login })(withRouter(Login));
+export default connect(mapStateToProps, { loginOperator }, { loginDiner })(withRouter(Login));

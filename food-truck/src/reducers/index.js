@@ -1,5 +1,6 @@
-import { ADD_OPERATOR_SUCCESS, ADD_OPERATOR_START, ADD_OPERATOR_FAIL, ADD_DINER_START, ADD_DINER_SUCCESS , ADD_DINER_FAIL, OPERATOR_LOGIN, DINER_LOGIN_START , DINER_LOGIN_SUCCESS , DINER_LOGIN_FAIL, REMEMBER_STATE_ON_REFRESH
-    , EDIT_MENU_ITEM, EDIT_TRUCK, ADD_MENU_ITEM, DELETE_TRUCK, SIGN_OUT, 
+import { ADD_OPERATOR_SUCCESS, ADD_OPERATOR_START, ADD_OPERATOR_FAIL, ADD_DINER_START, ADD_DINER_SUCCESS ,
+     ADD_DINER_FAIL, DINER_LOGIN_START , DINER_LOGIN_SUCCESS, OPERATOR_LOGIN_START, OPERATOR_LOGIN_SUCCESS, OPERATOR_LOGIN_FAIL , DINER_LOGIN_FAIL, REMEMBER_STATE_ON_REFRESH
+    , EDIT_MENU_ITEM, EDIT_TRUCK, ADD_MENU_ITEM, DELETE_TRUCK_START, DELETE_TRUCK_SUCCESS, DELETE_TRUCK_FAIL, SIGN_OUT, 
     ADD_REVIEW, CHANGE_FAVORITE, EDIT_OPERATOR_INFORMATION, EDIT_DINER_INFORMATION } from "../actions";
    // import uuid from 'react-uuid';
     
@@ -148,25 +149,24 @@ import { ADD_OPERATOR_SUCCESS, ADD_OPERATOR_START, ADD_OPERATOR_FAIL, ADD_DINER_
                     }
                 }
     
-            case DELETE_TRUCK:
-    
-                const newTruckList = state.currentUser.trucks.filter( truck => {
-                    return truck.id !== action.payload
-                });
-    
-                console.log(action.payload);
-    
-                localStorage.setItem('state', JSON.stringify({
-                    ...state,
-                    currentUser: {...state.currentUser,
-                    trucks: newTruckList}
-                }));
+            case DELETE_TRUCK_START:
     
                 return {
                     ...state,
-                    currentUser: {...state.currentUser,
-                    trucks: newTruckList}
+                    isDeleting: true,
                 }
+            case DELETE_TRUCK_SUCCESS:
+                return {
+                    isDeleting: false,
+                    trucks: state.trucks.filter(truck => {
+                        return truck.id !== Selection.payload
+                    })
+                }
+            case DELETE_TRUCK_FAIL: 
+             return {
+                 err: null
+             }
+                  
     
             case ADD_MENU_ITEM:
     
@@ -317,10 +317,23 @@ import { ADD_OPERATOR_SUCCESS, ADD_OPERATOR_START, ADD_OPERATOR_FAIL, ADD_DINER_
     
             }
     
-            case OPERATOR_LOGIN:
-    
-                return({...state, 
-                    currentUser: action.payload});
+            case OPERATOR_LOGIN_START:
+                return {
+                    ...state
+                }
+             case OPERATOR_LOGIN_SUCCESS:
+     
+                 console.log("here");
+     
+                 localStorage.setItem('state', JSON.stringify({currentUser: action.payload}));
+                 localStorage.setItem('role', JSON.stringify(action.payload.Role));
+     
+                 return {currentUser: action.payload}
+ 
+             case OPERATOR_LOGIN_FAIL:
+                return {
+                    ...state
+                }
     
                     case DINER_LOGIN_START:
                         return {
