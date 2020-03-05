@@ -78,7 +78,7 @@ const DinerSignUp = props => {
             username: data.username,
             password: data.password,
             email: data.email,
-            location: { lat: data.latitude, long: data.longitude }
+            location: `${data.latitude},${data.longitude}`
           });
 
           props.history.push("/dinerdashboard");
