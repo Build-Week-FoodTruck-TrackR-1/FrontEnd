@@ -17,7 +17,7 @@ const Navbar = () => {
       </ScrollAnimation>
 
       <nav className="nav-bar">
-      <a href="https://build-week-foodtruck-trackr-1.github.io/MarketingPage/">
+        <a href="https://build-week-foodtruck-trackr-1.github.io/MarketingPage/">
           Home
         </a>
         <a href="https://build-week-foodtruck-trackr-1.github.io/MarketingPage/about.html">
