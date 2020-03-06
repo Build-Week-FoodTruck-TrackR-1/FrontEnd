@@ -43,6 +43,7 @@ const SignupOperator = props => {
   const [formValues, setFormValues] = useState({
     /* firstName: "",
     lastName: "", */
+    role: "Operator",
     username: "",
     password: "",
     email: ""

@@ -24,7 +24,7 @@ const Navbar = () => {
           About Us
         </a>
 
-        <NavLink to="/" exact activeClassName="activeLink">
+        <NavLink to="/loginDiner" exact activeClassName="activeLink">
           Login
         </NavLink>
         <NavLink to="/register" exact activeClassName="activeLink">

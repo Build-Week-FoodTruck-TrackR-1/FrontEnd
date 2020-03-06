@@ -71,7 +71,7 @@ const DinerSignUp = props => {
 
           props.addDiner({
             /*id: uuid(),*/
-            Role: "Diner",
+            role: "Diner",
             /*favoriteTrucks: [],
             firstName: data.firstName,
             lastName: data.lastName,*/

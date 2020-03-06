@@ -1,12 +1,17 @@
 import { ADD_OPERATOR_SUCCESS, ADD_OPERATOR_START, ADD_OPERATOR_FAIL, ADD_DINER_START, ADD_DINER_SUCCESS ,
      ADD_DINER_FAIL, DINER_LOGIN_START , DINER_LOGIN_SUCCESS, OPERATOR_LOGIN_START, OPERATOR_LOGIN_SUCCESS, OPERATOR_LOGIN_FAIL , DINER_LOGIN_FAIL, REMEMBER_STATE_ON_REFRESH
-    , EDIT_MENU_ITEM, EDIT_TRUCK, ADD_MENU_ITEM, DELETE_TRUCK_START, DELETE_TRUCK_SUCCESS, DELETE_TRUCK_FAIL, SIGN_OUT, 
-    ADD_REVIEW, CHANGE_FAVORITE, EDIT_OPERATOR_INFORMATION, EDIT_DINER_INFORMATION } from "../actions";
+    , EDIT_MENU_ITEM_START, EDIT_MENU_ITEM_SUCCESS, EDIT_MENU_ITEM_FAIL, EDIT_TRUCK_START, EDIT_TRUCK_SUCCESS, EDIT_TRUCK_FAIL, ADD_MENU_ITEM, DELETE_TRUCK_START, DELETE_TRUCK_SUCCESS, DELETE_TRUCK_FAIL, SIGN_OUT, 
+    ADD_REVIEW, CHANGE_FAVORITE, EDIT_DINER_INFORMATION_START, EDIT_DINER_INFORMATION_SUCCESS, EDIT_DINER_INFORMATION_FAIL } from "../actions";
    // import uuid from 'react-uuid';
     
     
     const initialState = {
-        currentUser: {}
+        currentUser: {},
+        trucks: [],
+        isDeleting: false,
+        isUpdating: false,
+        isAdding: false,
+        err: null
     
     };
     
@@ -17,137 +22,131 @@ import { ADD_OPERATOR_SUCCESS, ADD_OPERATOR_START, ADD_OPERATOR_FAIL, ADD_DINER_
     
         switch(action.type) {
     
-            case EDIT_DINER_INFORMATION:
+            //  case EDIT_DINER_INFORMATION:
     
-                console.log('sup')
-                console.log(action.payload);
+            //     console.log('sup')
+            //     console.log(action.payload);
     
-                localStorage.setItem('state', JSON.stringify({...state,
-                    currentUser: {...state.currentUser,
-                                 firstName: action.payload.firstName,
-                                 lastName: action.payload.lastName,
-                                 email: action.payload.email,
-                                 location: action.payload.location}}));
+            //     localStorage.setItem('state', JSON.stringify({...state,
+            //         currentUser: {...state.currentUser,
+            //                      firstName: action.payload.firstName,
+            //                      lastName: action.payload.lastName,
+            //                      email: action.payload.email,
+            //                      location: action.payload.location}}));
                 
-                return({...state,
-                        currentUser: {...state.currentUser,
-                                     firstName: action.payload.firstName,
-                                     lastName: action.payload.lastName,
-                                     email: action.payload.email,
-                                     location: action.payload.location}});
+            //     return({...state,
+            //             currentUser: {...state.currentUser,
+            //                          firstName: action.payload.firstName,
+            //                          lastName: action.payload.lastName,
+            //                          email: action.payload.email,
+            //                          location: action.payload.location}});
     
-            case EDIT_OPERATOR_INFORMATION:
+            // case EDIT_OPERATOR_INFORMATION:
     
-                localStorage.setItem('state', JSON.stringify({...state,
-                    currentUser: {...state.currentUser,
-                                 firstName: action.payload.firstName,
-                                 lastName: action.payload.lastName,
-                                 email: action.payload.email,
-                                 businessName: action.payload.businessName}}));
+            //     localStorage.setItem('state', JSON.stringify({...state,
+            //         currentUser: {...state.currentUser,
+            //                      firstName: action.payload.firstName,
+            //                      lastName: action.payload.lastName,
+            //                      email: action.payload.email,
+            //                      businessName: action.payload.businessName}}));
                 
-                return({...state,
-                        currentUser: {...state.currentUser,
-                                     firstName: action.payload.firstName,
-                                     lastName: action.payload.lastName,
-                                     email: action.payload.email,
-                                     businessName: action.payload.businessName}});
+            //     return({...state,
+            //             currentUser: {...state.currentUser,
+            //                          firstName: action.payload.firstName,
+            //                          lastName: action.payload.lastName,
+            //                          email: action.payload.email,
+            //                          businessName: action.payload.businessName}});
     
     
-            case EDIT_MENU_ITEM:
+            // case EDIT_MENU_ITEM:
     
-                const truckIndex = state.currentUser.trucks.findIndex(truck => {
-                    return truck.id === action.payload.currentTruck
-                });
+            //     const truckIndex = state.currentUser.trucks.findIndex(truck => {
+            //         return truck.id === action.payload.currentTruck
+            //     });
     
-                let trucks = state.currentUser.trucks;
-                if ([action.payload.catagory] === [action.payload.currentCatagory]){
-                        const itemIndex = trucks[truckIndex].catagorys[action.payload.catagory].findIndex( item => {
-                            return item.id === action.payload.id
-                    });
+            //     let trucks = state.currentUser.trucks;
+            //     if ([action.payload.catagory] === [action.payload.currentCatagory]){
+            //             const itemIndex = trucks[truckIndex].catagorys[action.payload.catagory].findIndex( item => {
+            //                 return item.id === action.payload.id
+            //         });
                     
-                        let updatedCatagory = trucks[truckIndex].catagorys[action.payload.catagory]
-                        updatedCatagory[itemIndex] = {
-                            ...updatedCatagory[itemIndex],
-                            description: action.payload.description,
-                            price: action.payload.price,
-                            name: action.payload.itemName
-                        };
+            //             let updatedCatagory = trucks[truckIndex].catagorys[action.payload.catagory]
+            //             updatedCatagory[itemIndex] = {
+            //                 ...updatedCatagory[itemIndex],
+            //                 description: action.payload.description,
+            //                 price: action.payload.price,
+            //                 name: action.payload.itemName
+            //             };
     
-                        trucks[truckIndex].catagorys[action.payload.catagory] = updatedCatagory;
+            //             trucks[truckIndex].catagorys[action.payload.catagory] = updatedCatagory;
     
-                    return{
-                        ...state,
-                        currentUser: {...state.currentUser,
-                        trucks: trucks}
-                    }
+            //         return{
+            //             ...state,
+            //             currentUser: {...state.currentUser,
+            //             trucks: trucks}
+            //         }
             
-                }
-                else {
+            //     }
+            //     else {
     
-                    if (!trucks[truckIndex].catagorys.hasOwnProperty(action.payload.catagory))
-                    {
-                        trucks[truckIndex].catagorys[action.payload.catagory] = [{
-                            name: action.payload.itemName,
-                            description: action.payload.description,
-                            price: action.payload.price,
+            //         if (!trucks[truckIndex].catagorys.hasOwnProperty(action.payload.catagory))
+            //         {
+            //             trucks[truckIndex].catagorys[action.payload.catagory] = [{
+            //                 name: action.payload.itemName,
+            //                 description: action.payload.description,
+            //                 price: action.payload.price,
 
-                        }]
+            //             }]
     
-                        console.log(trucks);
+            //             console.log(trucks);
     
-                        return{
-                            ...state,
-                            currentUser:{...state.currentUser,
-                            trucks: trucks}
-                        };
-                    }
-                    else {
+            //             return{
+            //                 ...state,
+            //                 currentUser:{...state.currentUser,
+            //                 trucks: trucks}
+            //             };
+            //         }
+            //         else {
                         
-                        const filteredCatagory = trucks[truckIndex].catagorys[action.payload.currentCatagory].filter( item => {
-                            return item.id !== action.payload.id
-                        });
+            //             const filteredCatagory = trucks[truckIndex].catagorys[action.payload.currentCatagory].filter( item => {
+            //                 return item.id !== action.payload.id
+            //             });
     
     
-                        trucks[truckIndex].catagorys[action.payload.currentCatagory] = filteredCatagory;
-                        trucks[truckIndex].catagorys[action.payload.catagory] = 
-                        [...trucks[truckIndex].catagorys[action.payload.catagory],
-                        { name: action.payload.itemName,
-                            description: action.payload.description,
-                            price: action.payload.price,
+            //             trucks[truckIndex].catagorys[action.payload.currentCatagory] = filteredCatagory;
+            //             trucks[truckIndex].catagorys[action.payload.catagory] = 
+            //             [...trucks[truckIndex].catagorys[action.payload.catagory],
+            //             { name: action.payload.itemName,
+            //                 description: action.payload.description,
+            //                 price: action.payload.price,
                             
-                        }];
+            //             }];
     
     
-                        return {...state,
-                        currentUser: {...state.currentUser,
-                        trucks: trucks}};
+            //             return {...state,
+            //             currentUser: {...state.currentUser,
+            //             trucks: trucks}};
     
-                    }
-                }
+            //         }
+            //     }
              
-            case EDIT_TRUCK:
+            case EDIT_TRUCK_START:
     
-                console.log("aaaaaaaaa");
-                
-                let truckList = state.currentUser.trucks;
-                const truckListIndex = truckList.findIndex( truck => {
-                    return truck.id === action.payload.id
-                });
-    
-                truckList[truckListIndex] = {
-                    ...truckList[truckListIndex],
-                    truckName: action.payload.truckName,
-                    cuisineType: action.payload.cuisineType,
-                    location: action.payload.location
-                };
-    
-                return {
+               return {
+                   ...state,
+                   isAdding: false,
+               }
+            case EDIT_TRUCK_SUCCESS:
+                return{
                     ...state,
-                    currentUser: {
-                        ...state.currentUser,
-                        truckList: truckList
-                    }
-                }
+                    isUpdating: false,
+                    trucks: [...state.trucks, action.payload]
+                }   
+            case EDIT_TRUCK_FAIL:
+                return {
+                    err: null
+                }    
+
     
             case DELETE_TRUCK_START:
     

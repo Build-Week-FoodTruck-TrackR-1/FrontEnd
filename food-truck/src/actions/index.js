@@ -8,8 +8,12 @@ export const ADD_OPERATOR_FAIL = "ADD_OPERATOR_FAIL";
 export const ADD_DINER_START = "ADD_DINER_START";
 export const ADD_DINER_SUCCESS = "ADD_DINER_SUCCESS";
 export const ADD_DINER_FAIL = "ADD_DINER_FAIL";
-export const EDIT_TRUCK = "EDIT_TRUCK";
-export const EDIT_MENU_ITEM = "EDIT_MENU_ITEM";
+export const EDIT_TRUCK_START = "EDIT_TRUCK_START";
+export const EDIT_TRUCK_SUCCESS = "EDIT_TRUCK_SUCCESS";
+export const EDIT_TRUCK_FAIL = "EDIT_TRUCK_FAIL";
+export const EDIT_MENU_ITEM_START = "EDIT_MENU_ITEM_START";
+export const EDIT_MENU_ITEM_SUCCESS = "EDIT_MENU_ITEM_SUCCESS";
+export const EDIT_MENU_ITEM_FAIL = "EDIT_MENU_ITEM_FAIL";
 export const ADD_REVIEW = "ADD_REVIEW";
 export const OPERATOR_LOGIN_START = "OPERATOR_LOGIN_START";
 export const OPERATOR_LOGIN_SUCCESS = "OPERATOR_LOGIN_SUCCESS";
@@ -24,8 +28,12 @@ export const DELETE_TRUCK_SUCCESS = "DELETE_TRUCK_SUCCESS";
 export const DELETE_TRUCK_FAIL = "DELETE_TRUCK_FAIL";
 export const SIGN_OUT = "SIGN_OUT";
 export const CHANGE_FAVORITE = "CHANGE_FAVORITE";
-export const EDIT_DINER_INFORMATION = "EDIT_DINER_INFORMATION";
-export const EDIT_OPERATOR_INFORMATION = "EDIT_OPERATOR_INFORMATION";
+export const EDIT_DINER_INFORMATION_START = "EDIT_DINER_INFORMATION_START";
+export const EDIT_DINER_INFORMATION_SUCCESS = "EDIT_DINER_INFORMATION_SUCCESS";
+export const EDIT_DINER_INFORMATION_FAIL = "EDIT_DINER_INFORMATION_FAIL";
+export const EDIT_OPERATOR_INFORMATION_START = "EDIT_OPERATOR_INFORMATION_START";
+export const EDIT_OPERATOR_INFORMATION_SUCCESS = "EDIT_OPERATOR_INFORMATION_SUCCESS";
+export const EDIT_OPERATOR_INFORMATION_FAIL = "EDIT_OPERATOR_INFORMATION_FAIL";
 
 export const rememberStateOnRefresh = state => {
   return {
@@ -91,7 +99,7 @@ export const editTruck = formData => {
   console.log(formData);
 
   return {
-    type: EDIT_TRUCK,
+    // type: EDIT_TRUCK,
     payload: formData
   };
 };
@@ -100,7 +108,7 @@ export const editMenuItem = formData => {
   console.log(formData);
 
   return {
-    type: EDIT_MENU_ITEM,
+    // type: EDIT_MENU_ITEM,
     payload: formData
   };
 };
@@ -108,12 +116,12 @@ export const editMenuItem = formData => {
 export const editUserInformation = formData => {
   if (JSON.parse(localStorage.getItem("role")) === "Diner") {
     return {
-      type: EDIT_DINER_INFORMATION,
+    //   type: EDIT_DINER_INFORMATION,
       payload: formData
     };
   } else {
     return {
-      type: EDIT_OPERATOR_INFORMATION,
+    //   type: EDIT_OPERATOR_INFORMATION,
       payload: formData
     };
   }
