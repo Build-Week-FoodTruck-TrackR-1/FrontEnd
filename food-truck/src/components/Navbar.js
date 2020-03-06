@@ -17,8 +17,12 @@ const Navbar = () => {
       </ScrollAnimation>
 
       <nav className="nav-bar">
-        <a href="#">Home</a>
-        <a href="#">About Us</a>
+        <a href="https://build-week-foodtruck-trackr-1.github.io/MarketingPage/">
+          Home
+        </a>
+        <a href="https://build-week-foodtruck-trackr-1.github.io/MarketingPage/about.html">
+          About Us
+        </a>
 
         <NavLink to="/" exact activeClassName="activeLink">
           Login
