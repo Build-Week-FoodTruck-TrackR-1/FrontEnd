@@ -29,23 +29,24 @@ const Login = props => {
 
       <Formik
         initialValues={{}}
-        onSubmit={(data, props) => {
+        onSubmit={(data) => {
           console.log(data);
-          console.log(props);
+          
           if (data.select === "vendor") {
             handleLoginOperator(data);
             props.history.push("/operatordashboard");
+            console.log(props);
           } else {
             handleLoginDiner(data);
             props.history.push("/dinerdashboard");
           }
 
           console.log(props.state);
-
+           console.log(localStorage.currentUser)
           console.log(localStorage);
 
           console.log(localStorage.getItem("state"));
-          if (localStorage.getItem("state").currentUser.hasOwnProperty("id")) {
+          if (props.state.currentUser.hasOwnProperty("id")) {
             localStorage.getItem("role") === "Operator"
               ? props.history.push("/operatordashboard")
               : props.history.push("/dinerdashboard");
