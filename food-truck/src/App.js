@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import DinerDashboard from "./components/dinerDashboard/index";
 import "./components/Styles/App.scss";
 import OperatorDashboard from "./components/operatorDashboard/index";
-import LoginPage from "./components/loginPage/Login";
+import Login from "./components/loginPage/Login";
 import RegisterChoice from "./components/RegisterChoice";
 import TruckPage from "./components/trucksPage/index";
 import SignupOperator from "./components/loginPage/signupOperator";
@@ -21,7 +21,7 @@ const OperatorRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      JSON.parse(localStorage.getItem("role")) === "Operator" ? (
+     (localStorage.getItem("role")) === "Operator" ? (
         <Component {...props} />
       ) : (
         <Redirect to="/" />
@@ -34,7 +34,7 @@ const DinerRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      JSON.parse(localStorage.getItem("role")) === "Diner" ? (
+      (localStorage.getItem("role")) === "Diner" ? (
         <Component {...props} />
       ) : (
         <Redirect to="/" />
@@ -47,9 +47,9 @@ const TruckPageRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      JSON.parse(localStorage.getItem("role")) === "Operator" ? (
+      (localStorage.getItem("role")) === "Operator" ? (
         <Component {...props} />
-      ) : JSON.parse(localStorage.getItem("role")) === "Diner" ? (
+      ) :(localStorage.getItem("role")) === "Diner" ? (
         <Component {...props} />
       ) : (
         <Redirect to="/" />
@@ -62,16 +62,28 @@ const IndexRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      JSON.parse(localStorage.getItem("role")) === "Operator" ? (
+      (localStorage.getItem("role")) === "Operator" ? (
         <Redirect to="/operatordashboard" />
-      ) : JSON.parse(localStorage.getItem("role")) === "Diner" ? (
-        <Redirect to="dinerdashboard" />
+      ) :(localStorage.getItem("role")) === "Diner" ? (
+        <Redirect to="/dinerdashboard" />
       ) : (
         <Component {...props} />
       )
     }
   />
 );
+
+const DinerDashboardRoute = ({ component: Component, ...rest}) => {
+  return (<Route 
+    {...rest}
+    render={props => (localStorage.getItem("role")) === "Diner" ? (
+      <Component {...props} />
+    ) : (
+      <Redirect to="/loginDiner" />
+    )
+  }
+  />)
+}
 
 function App(props) {
   useEffect(() => {
@@ -93,7 +105,9 @@ function App(props) {
         <GlobalStyle />
 
         <Switch>
-          <IndexRoute exact path="/" component={LoginPage} />
+          <DinerDashboardRoute path="/dinerdashboard" component={DinerDashboard} />
+          {/* <IndexRoute exact path="/" component={Login} /> */}
+          <Route exact path="/logindiner" component={Login} />
           <IndexRoute exact path="/register" component={RegisterChoice} />
 
           <DinerRoute path="/dinerdashboard" component={DinerDashboard} />

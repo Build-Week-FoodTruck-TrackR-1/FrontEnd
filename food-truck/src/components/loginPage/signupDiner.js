@@ -71,14 +71,14 @@ const DinerSignUp = props => {
 
           props.addDiner({
             /*id: uuid(),*/
-            Role: "Diner",
+            role: "Diner",
             /*favoriteTrucks: [],
             firstName: data.firstName,
             lastName: data.lastName,*/
             username: data.username,
             password: data.password,
             email: data.email,
-            location: { lat: data.latitude, long: data.longitude }
+            location: `${data.latitude},${data.longitude}`
           });
 
           props.history.push("/dinerdashboard");

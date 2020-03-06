@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { loginOperator } from "../../actions";
 import { loginDiner } from "../../actions";
- 
+
 const Login = props => {
   const handleLoginDiner = data => {
     props.loginDiner(data);
@@ -29,15 +29,20 @@ const Login = props => {
 
       <Formik
         initialValues={{}}
-        onSubmit={(data, { setSubmitting }) => {
-          if(data.select==='vendor'){handleLoginOperator(data);}else{
-            handleLoginDiner(data)
+        onSubmit={(data, props) => {
+          console.log(data);
+          console.log(props);
+          if (data.select === "vendor") {
+            handleLoginOperator(data);
+            props.history.push("/operatordashboard");
+          } else {
+            handleLoginDiner(data);
+            props.history.push("/dinerdashboard");
           }
-          
 
           console.log(props.state);
 
-          console.log(localStorage.getItem("state"));
+          console.log(localStorage);
 
           console.log(localStorage.getItem("state"));
           if (localStorage.getItem("state").currentUser.hasOwnProperty("id")) {
@@ -72,15 +77,14 @@ const Login = props => {
               />
             </FormGroup>
             <FormGroup>
-          <Field as="select" name="select" className="form-control select">
-            <option disabled value="initial">
-              Account Type
-            </option>
-            <option value="vendor">Vendor</option>
-            <option value="customer">Customer</option>
-          </Field>
-          
-        </FormGroup>
+              <Field as="select" name="select" className="form-control select">
+                <option disabled value="initial">
+                  Account Type
+                </option>
+                <option value="vendor">Vendor</option>
+                <option value="customer">Customer</option>
+              </Field>
+            </FormGroup>
             <Button type="submit">Login</Button>
             <FormGroup>
               Don't have an Account? {"  "}
@@ -101,4 +105,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { loginOperator, loginDiner })(withRouter(Login));
+export default connect(mapStateToProps, { loginOperator, loginDiner })(
+  withRouter(Login)
+);
